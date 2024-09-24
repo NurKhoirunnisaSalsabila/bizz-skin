@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Welcome to BizzSkin!</h1>
+
+<h5>NPM: </h5>
+<p>{{ npm }}<p>
+
+<h5>Name:</h5>
+<p>{{ name }}</p>
+
+<h5>Class:</h5>
+<p>{{ class }}</p>
+
+{% if not products %}
+        <p>Belum ada data produk pada Aplikasi Bizz Skin!</p>
+        {% else %}
+        <style>
+            table {
+                width: 100%;
+                border-collapse: separate;
+                border-spacing: 0 10px; /* Menambah jarak vertikal antar baris */
+            }
+            th, td {
+                padding: 10px 15px; /* Menambah ruang dalam sel */
+                text-align: left;
+                border-bottom: 1px solid #ddd;
+            }
+            th {
+                background-color: #f2f2f2;
+                font-weight: bold;
+            }
+            .nama-produk { width: 25%; }
+            .harga-produk { width: 15%; }
+            .deskripsi-produk { width: 20%; }
+            .tipe-kulit { width: 15%; }
+            .stok-produk { width: 15%; }
+            .rating-produk { width: 10%; }
+        </style>
+        
+        <table>
+            <tr>
+                <th class="nama-produk">Nama Produk</th>
+                <th class="harga-produk">Harga Produk</th>
+                <th class="deskripsi-produk">Deskripsi Produk</th>
+                <th class="tipe-kulit">Tipe Kulit</th>
+                <th class="stok-produk">Stok Produk</th>
+                <th class="rating-produk">Rating Produk</th>
+            </tr>
+            {% for product in products %}
+            <tr>
+                <td class="nama-produk">{{ product.name }}</td>
+                <td class="harga-produk">{{ product.price }}</td>
+                <td class="deskripsi-produk">{{ product.description }}</td>
+                <td class="tipe-kulit">{{ product.skin_type }}</td>
+                <td class="stok-produk">{{ product.stock }}</td>
+                <td class="rating-produk">{{ product.rating }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% endif %}
+
+        <br />
+
+        <a href="{% url 'main:create_product' %}">
+            <button>Tambah Produk Baru</button>
+        </a>
+
+{% endblock content %}
